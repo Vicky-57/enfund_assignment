@@ -48,7 +48,7 @@ def google_login(request):
         "client_id": settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
         "response_type": "code",
         "scope": "openid email profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file",
-        "redirect_uri": settings.GOOGLE_REDIRECT_URI,
+        "redirect_uri": settings.SOCIAL_AUTH_GOOGLE_REDIRECT_URI,
         "access_type": "offline",
         "prompt": "consent",
     }
@@ -67,7 +67,7 @@ def google_callback(request):
         "client_secret": settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
         "code": code,
         "grant_type": "authorization_code",
-        "redirect_uri": settings.GOOGLE_REDIRECT_URI,
+        "redirect_uri": settings.SOCIAL_AUTH_GOOGLE_REDIRECT_URI,
     }
     
     response = requests.post(token_url, data=data)
@@ -231,8 +231,8 @@ def pick_from_drive(request):
     
     context = {
         'client_id': settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
-        'api_key': settings.GOOGLE_API_KEY,
-        'app_id': settings.GOOGLE_APP_ID,
+        'api_key': settings.SOCIAL_AUTH_GOOGLE_API_KEY,
+        'app_id': settings.SOCIAL_AUTH_GOOGLE_APP_ID,
         'access_token': request.session.get('access_token'),
         'user_email': user_email
     }
